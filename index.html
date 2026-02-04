@@ -61,8 +61,8 @@
         /* --- Header --- */
         header {
             text-align: center;
-            margin-bottom: 40px;
-            padding: 40px 0;
+            margin-bottom: 30px;
+            padding: 30px 0;
             border-bottom: 1px solid var(--border-subtle);
         }
 
@@ -78,6 +78,51 @@
             font-family: 'Merriweather', serif;
             font-style: italic;
             color: var(--text-secondary);
+        }
+
+        /* --- Tabs Navigation --- */
+        .tabs {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+
+        .tab-btn {
+            background: transparent;
+            border: 1px solid var(--border-subtle);
+            color: var(--text-secondary);
+            padding: 12px 30px;
+            border-radius: 30px;
+            cursor: pointer;
+            font-family: 'Poppins', sans-serif;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .tab-btn.active {
+            background: var(--live-accent);
+            color: var(--live-deep);
+            border-color: var(--live-accent);
+            box-shadow: 0 0 15px rgba(0, 232, 0, 0.3);
+        }
+
+        .tab-btn:hover:not(.active) {
+            border-color: var(--live-accent);
+            color: var(--live-accent);
+        }
+
+        .tab-content {
+            display: none;
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+
+        .tab-content.active {
+            display: block;
+            opacity: 1;
         }
 
         /* --- Buttons --- */
@@ -291,6 +336,51 @@
             font-size: 0.85rem;
         }
 
+        /* --- Tutorial Styles --- */
+        .tutorial-block {
+            background: rgba(10, 36, 61, 0.4);
+            border: 1px solid var(--border-subtle);
+            border-radius: 12px;
+            padding: 25px;
+            margin-bottom: 30px;
+        }
+
+        .question-box {
+            background: rgba(0,0,0,0.2);
+            border-left: 4px solid var(--live-accent);
+            padding: 15px 20px;
+            margin: 15px 0;
+            border-radius: 0 8px 8px 0;
+        }
+
+        .question-text {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #ffffff;
+            font-family: 'Merriweather', serif;
+            font-style: italic;
+        }
+
+        .evaluation-criteria {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-top: 15px;
+            font-size: 0.9rem;
+        }
+
+        .criteria-col strong {
+            display: block;
+            margin-bottom: 5px;
+            text-transform: uppercase;
+            font-size: 0.8rem;
+        }
+
+        .criteria-col.good { color: #dcfce7; }
+        .criteria-col.bad { color: #fee2e2; }
+        .criteria-col.good strong { color: var(--live-accent); }
+        .criteria-col.bad strong { color: var(--live-danger); }
+
         /* --- Scripts WhatsApp --- */
         .whatsapp-box {
             background: #0f2c25;
@@ -317,6 +407,9 @@
                 border-top: 1px solid var(--border-subtle);
                 padding-top: 10px;
             }
+            .evaluation-criteria {
+                grid-template-columns: 1fr;
+            }
         }
     </style>
 </head>
@@ -330,204 +423,307 @@
                 Vaga: Gerente de Unidade (Operação Noturna & Eventos)
             </div>
             
-            <!-- Botão de Acesso ao Drive -->
             <a href="https://drive.google.com/drive/folders/1uei1fZM01e1j4c6zfXtzWuz2Mc-jN2L9?usp=sharing" target="_blank" class="btn-live">
                 <i data-lucide="folder-open"></i>
                 Acessar Pasta de Currículos (Drive)
             </a>
         </header>
 
-        <!-- INTRODUÇÃO -->
-        <div style="margin-bottom: 40px; border-left: 3px solid var(--live-accent); padding-left: 20px;">
-            <h3 style="color: var(--text-primary);">Diagnóstico do Consultor</h3>
-            <p style="font-family: 'Merriweather', serif; color: var(--text-secondary);">
-                A análise focou em resolver a dor crítica: <strong>Auditoria de Processos (Estoque/Ficha Técnica)</strong> combinada com <strong>Liderança de Eventos de Grande Porte (Autódromo)</strong>. Dos 6 candidatos analisados, 2 se destacam com fit imediato para entrevista.
+        <!-- Navegação por Abas -->
+        <nav class="tabs">
+            <button class="tab-btn active" onclick="openTab('parecer')">Parecer Técnico</button>
+            <button class="tab-btn" onclick="openTab('tutorial')">Tutorial de Entrevista</button>
+        </nav>
+
+        <!-- CONTEÚDO: PARECER TÉCNICO -->
+        <div id="parecer" class="tab-content active">
+            <!-- INTRODUÇÃO -->
+            <div style="margin-bottom: 40px; border-left: 3px solid var(--live-accent); padding-left: 20px;">
+                <h3 style="color: var(--text-primary);">Diagnóstico do Consultor</h3>
+                <p style="font-family: 'Merriweather', serif; color: var(--text-secondary);">
+                    A análise focou em resolver a dor crítica: <strong>Auditoria de Processos (Estoque/Ficha Técnica)</strong> combinada com <strong>Liderança de Eventos de Grande Porte (Autódromo)</strong>. Dos 6 candidatos analisados, 2 se destacam com fit imediato para entrevista.
+                </p>
+            </div>
+
+            <!-- CANDIDATO 1: ALAN -->
+            <article class="elite-card">
+                <div class="card-header">
+                    <div>
+                        <h2>Alan Gonçalves Viana</h2>
+                        <span style="font-size: 0.9rem; color: var(--text-secondary);">Gerente de Restaurante e Lanchonete</span>
+                    </div>
+                    <span class="badge recommended"><i data-lucide="check-circle" width="16"></i> Recomendado - Fit Cultural</span>
+                </div>
+
+                <section>
+                    <div class="section-title"><i data-lucide="search"></i> 1. Diagnóstico de Trajetória</div>
+                    <p class="narrative-text">
+                        O candidato apresenta o alinhamento geográfico e de nicho mais preciso. Atua no <strong>"Clube do Botafogo / MLD Stadium Catering"</strong>. A vivência em "Stadium Catering" é o diferencial "unfair", indicando familiaridade imediata com a dinâmica do Autódromo (picos de eventos, logística complexa). Cita explicitamente "Supervisão de estoque" e "Interface entre funcionários e proprietário", resolvendo a necessidade de um gestor de confiança no front.
+                    </p>
+                </section>
+
+                <section>
+                    <div class="section-title"><i data-lucide="star"></i> 2. Evidências Técnicas (Padrão STAR)</div>
+                    <ul class="star-list">
+                        <li><strong>Situação:</strong> Operação em ambiente de Estádio/Clube Esportivo.</li>
+                        <li><strong>Tarefa:</strong> Garantir agilidade e qualidade sob alta pressão de eventos.</li>
+                        <li><strong>Ação:</strong> Relata "Apoio à cozinha para garantir agilidade" e resolução direta de conflitos operacionais. Perfil "Maestro".</li>
+                        <li><strong>Resultado:</strong> Foco declarado em fidelização e garantia da qualidade do serviço.</li>
+                    </ul>
+                </section>
+
+                <div class="swot-grid">
+                    <div class="swot-item strength">
+                        <span class="swot-label">Força</span>
+                        Experiência "mão na massa" em estádios; Gestão de estoque citada.
+                    </div>
+                    <div class="swot-item weakness">
+                        <span class="swot-label">Fraqueza</span>
+                        Currículo sintético; necessário aprofundar números de faturamento na entrevista.
+                    </div>
+                    <div class="swot-item opportunity">
+                        <span class="swot-label">Oportunidade</span>
+                        Readiness imediato para MotoGP e grandes shows.
+                    </div>
+                    <div class="swot-item threat">
+                        <span class="swot-label">Ameaça</span>
+                        Empregado atualmente (desde Jan 2025). Risco de contraproposta.
+                    </div>
+                </div>
+
+                <div class="scorecard-container">
+                    <div class="score-metrics">
+                        <ul>
+                            <li>Controle de Processos: <strong>4.5/5.0</strong></li>
+                            <li>Liderança de Front: <strong>5.0/5.0</strong></li>
+                            <li>Experiência em Eventos: <strong>5.0/5.0</strong></li>
+                            <li>Alinhamento Geográfico: <strong>5.0/5.0</strong></li>
+                        </ul>
+                    </div>
+                    <div class="score-final">
+                        <div class="number">96%</div>
+                        <div class="label">Score Final</div>
+                    </div>
+                </div>
+            </article>
+
+            <!-- CANDIDATO 2: WERICK -->
+            <article class="elite-card">
+                <div class="card-header">
+                    <div>
+                        <h2>Werick Fernando Abreu</h2>
+                        <span style="font-size: 0.9rem; color: var(--text-secondary);">Analista de Compras / Ex-Gerente</span>
+                    </div>
+                    <span class="badge warning"><i data-lucide="alert-triangle" width="16"></i> Recomendado - Perfil Auditor</span>
+                </div>
+
+                <section>
+                    <div class="section-title"><i data-lucide="search"></i> 1. Diagnóstico de Trajetória</div>
+                    <p class="narrative-text">
+                        Se a dor principal da Session for <strong>"Perda de Estoque e Erro de Notas"</strong>, Werick é a solução cirúrgica. Sua trajetória recente é focada em Compras, Análise de Custos e Sinistros. Possui experiência anterior como Gerente na "Royal Comércio de Bebidas" (conferência de cofre e caixa). É um perfil analítico, excelente para o backoffice e processos, mas pode carecer do dinamismo de salão (hostess).
+                    </p>
+                </section>
+
+                <div class="swot-grid">
+                    <div class="swot-item strength">
+                        <span class="swot-label">Força</span>
+                        Domínio absoluto de notas fiscais, cotação e auditoria de estoque.
+                    </div>
+                    <div class="swot-item weakness">
+                        <span class="swot-label">Fraqueza</span>
+                        Últimos 4 anos em escritório (compras/sinistros). Pode estar "enferrujado" na operação noturna.
+                    </div>
+                    <div class="swot-item opportunity">
+                        <span class="swot-label">Oportunidade</span>
+                        Profissionalizar o setor de compras e reduzir CMV drasticamente.
+                    </div>
+                    <div class="swot-item threat">
+                        <span class="swot-label">Ameaça</span>
+                        Perfil talvez técnico demais para a liderança de equipe de bar jovem.
+                    </div>
+                </div>
+
+                <div class="scorecard-container">
+                    <div class="score-metrics">
+                        <ul>
+                            <li>Controle de Processos: <strong>5.0/5.0</strong></li>
+                            <li>Liderança de Front: <strong>3.0/5.0</strong></li>
+                            <li>Experiência em Eventos: <strong>3.5/5.0</strong></li>
+                            <li>Alinhamento Financeiro: <strong>4.5/5.0</strong></li>
+                        </ul>
+                    </div>
+                    <div class="score-final">
+                        <div class="number">85%</div>
+                        <div class="label">Score Final</div>
+                    </div>
+                </div>
+            </article>
+
+            <!-- VISÃO GERAL OUTROS -->
+            <h2 style="margin-top: 60px; color: var(--text-primary);">Visão Geral dos Demais Candidatos</h2>
+            <table class="comparison-table">
+                <thead>
+                    <tr>
+                        <th>Candidato</th>
+                        <th>Perfil Resumido</th>
+                        <th>Parecer Técnico</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td style="font-weight: 600;">Goianésio F. Lucas Jr.</td>
+                        <td>Hotelaria Sênior / Copa do Mundo 2014</td>
+                        <td>
+                            <span class="badge warning" style="margin-bottom: 5px;">⚠️ Overqualified</span><br>
+                            Excelente técnico, mas risco salarial alto. Acostumado com estruturas de hotéis e resorts. Risco de frustração com R$ 3.5k.
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Paulo Henrique Tavares</td>
+                        <td>Varejo / Supermercado</td>
+                        <td>
+                            <span class="badge warning" style="margin-bottom: 5px;">⚠️ Médio Alinhamento</span><br>
+                            Perfil de "prancheta" de supermercado. Passagem no Empório Saccaria é positiva, mas mora longe (Aparecida).
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Leandro Borges</td>
+                        <td>Indústria / Franquias</td>
+                        <td>
+                            <span class="badge danger" style="margin-bottom: 5px;">❌ Não Recomendado</span><br>
+                            Foco excessivo em PDCA, CD e Planejamento Anual. Perfil corporativo demais para a agilidade de um bar.
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Bruno Henrique</td>
+                        <td>Vendas (Peças/PVC)</td>
+                        <td>
+                            <span class="badge danger" style="margin-bottom: 5px;">❌ Descartado</span><br>
+                            Sem experiência em A&B ou gestão de equipe noturna.
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <!-- PRÓXIMOS PASSOS -->
+            <div style="margin-top: 60px;">
+                <h2>Próximos Passos: Convite para Entrevista</h2>
+                <p style="color: var(--text-secondary); margin-bottom: 20px;">Copie os textos abaixo para agendar via WhatsApp.</p>
+
+                <div style="margin-bottom: 30px;">
+                    <strong style="color: var(--live-accent);">Opção 1: Alan Gonçalves (Prioridade Alta)</strong>
+                    <div class="whatsapp-box">
+                        "Olá, Alan! Tudo bem? Aqui é da equipe de seleção da Session (Parque Marcos Veiga Jardim). <br><br>
+                        Analisamos seu perfil e sua experiência com operações em Estádio/Catering chamou nossa atenção. Temos uma vaga de Gerência que exige exatamente essa dinâmica de eventos + controle.<br><br>
+                        Você teria disponibilidade para um papo técnico amanhã às [HORA] no local?"
+                    </div>
+                </div>
+
+                <div>
+                    <strong style="color: var(--live-warning);">Opção 2: Werick Abreu (Foco Auditoria)</strong>
+                    <div class="whatsapp-box">
+                        "Olá, Werick! Tudo bem? Aqui é da equipe de seleção da Session.<br><br>
+                        Vimos sua experiência sólida em compras e conferência na Royal e Solidy. Estamos buscando um Gerente com perfil forte em auditoria de processos e estoque.<br><br>
+                        Gostaríamos de entender se você tem interesse em voltar para a operação de ponta. Topa uma conversa amanhã?"
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- CONTEÚDO: TUTORIAL DE ENTREVISTA -->
+        <div id="tutorial" class="tab-content">
+            <h2 style="border-bottom: 1px solid var(--live-accent); padding-bottom: 10px; margin-bottom: 30px;">Guia Prático para o Entrevistador</h2>
+            
+            <p style="margin-bottom: 30px; color: var(--text-secondary);">
+                Este guia foi desenhado para testar <strong>"instinto de dono"</strong> e <strong>"rigor operacional"</strong>. O objetivo não é ouvir respostas bonitas, mas exemplos reais (STAR) de situações vividas.
             </p>
+
+            <!-- BLOCO 1 -->
+            <div class="tutorial-block">
+                <div class="section-title"><i data-lucide="shield-check"></i> 1. Integridade e Processos (O Guardião)</div>
+                <p>Avalia se o candidato prioriza a regra ou a amizade. Essencial para controle de estoque e caixa.</p>
+
+                <div class="question-box">
+                    <div class="question-text">"Imagine que você pegou um garçom muito antigo e querido pela equipe dando uma bebida 'por conta' para um amigo, sem registrar no sistema. O que você faz exatamente?"</div>
+                </div>
+                
+                <div class="evaluation-criteria">
+                    <div class="criteria-col good">
+                        <strong><i data-lucide="thumbs-up" width="14"></i> O que buscamos (Green Flags)</strong>
+                        Foca no processo imediato (lançar a bebida). Conversa com o colaborador em particular, mas registra o incidente. Entende que o estoque é dinheiro.
+                    </div>
+                    <div class="criteria-col bad">
+                        <strong><i data-lucide="thumbs-down" width="14"></i> Sinais de Alerta (Red Flags)</strong>
+                        "Deixo passar dessa vez pois ele é antigo", "Desconto do meu bolso para não dar confusão", "Falo com o dono para ver o que fazer" (medo de decidir).
+                    </div>
+                </div>
+            </div>
+
+            <!-- BLOCO 2 -->
+            <div class="tutorial-block">
+                <div class="section-title"><i data-lucide="bar-chart-2"></i> 2. Gestão de Estoque e CMV</div>
+                <p>Testa o conhecimento técnico real sobre controle de desperdício.</p>
+
+                <div class="question-box">
+                    <div class="question-text">"Qual é o seu método para fazer a contagem de estoque? Você prefere contagem cega ou com a ficha na mão? E se der diferença, qual o passo a passo da investigação?"</div>
+                </div>
+
+                <div class="evaluation-criteria">
+                    <div class="criteria-col good">
+                        <strong><i data-lucide="thumbs-up" width="14"></i> O que buscamos (Green Flags)</strong>
+                        Menciona "Contagem Cega" (para evitar vício). Investiga ficha técnica, desperdício não anotado, consumo interno e por último furto.
+                    </div>
+                    <div class="criteria-col bad">
+                        <strong><i data-lucide="thumbs-down" width="14"></i> Sinais de Alerta (Red Flags)</strong>
+                        Respostas genéricas ("conto tudo no olho"). Culpa o sistema ou o fornecedor imediatamente sem investigar internamente.
+                    </div>
+                </div>
+            </div>
+
+            <!-- BLOCO 3 -->
+            <div class="tutorial-block">
+                <div class="section-title"><i data-lucide="zap"></i> 3. Pressão e Eventos (MotoGP/Autódromo)</div>
+                <p>Avalia a inteligência emocional e a capacidade de ser "Maestro".</p>
+
+                <div class="question-box">
+                    <div class="question-text">"É dia de evento, casa cheia, cozinha atrasada em 40 minutos e dois clientes começam a reclamar alto na recepção. A equipe está travada. Qual sua ação imediata nos próximos 5 minutos?"</div>
+                </div>
+
+                <div class="evaluation-criteria">
+                    <div class="criteria-col good">
+                        <strong><i data-lucide="thumbs-up" width="14"></i> O que buscamos (Green Flags)</strong>
+                        Ação 1: Blindar a operação (tira o cliente do foco da equipe). Ação 2: Vai para a cozinha organizar a fila de pedidos (expedição). Mantém a calma.
+                    </div>
+                    <div class="criteria-col bad">
+                        <strong><i data-lucide="thumbs-down" width="14"></i> Sinais de Alerta (Red Flags)</strong>
+                        Começa a discutir com o cliente. Entra na cozinha gritando com a equipe. Fica paralisado pedindo desculpas sem resolver o gargalo.
+                    </div>
+                </div>
+            </div>
+
+             <!-- BLOCO 4 -->
+             <div class="tutorial-block">
+                <div class="section-title"><i data-lucide="users"></i> 4. Liderança e Motivação</div>
+                <p>Avalia como ele extrai produtividade (vendas) da equipe.</p>
+
+                <div class="question-box">
+                    <div class="question-text">"A Session paga comissão agressiva (2%). Como você faria, hoje, para a equipe vender 20% a mais na noite sem parecer que estão 'empurrando' produto?"</div>
+                </div>
+
+                <div class="evaluation-criteria">
+                    <div class="criteria-col good">
+                        <strong><i data-lucide="thumbs-up" width="14"></i> O que buscamos (Green Flags)</strong>
+                        Fala em "Sugestão de acompanhamento", "Oferecer sobremesa/café", "Giro de mesa mais rápido". Treinamento de produto (conhecer o que vende).
+                    </div>
+                    <div class="criteria-col bad">
+                        <strong><i data-lucide="thumbs-down" width="14"></i> Sinais de Alerta (Red Flags)</strong>
+                        "Mando eles oferecerem a bebida mais cara". "Ameaço cortar a folga". Foco apenas em pressão, não em técnica de venda.
+                    </div>
+                </div>
+            </div>
+
         </div>
 
-        <!-- CANDIDATO 1: ALAN -->
-        <article class="elite-card">
-            <div class="card-header">
-                <div>
-                    <h2>Alan Gonçalves Viana</h2>
-                    <span style="font-size: 0.9rem; color: var(--text-secondary);">Gerente de Restaurante e Lanchonete</span>
-                </div>
-                <span class="badge recommended"><i data-lucide="check-circle" width="16"></i> Recomendado - Fit Cultural</span>
-            </div>
-
-            <section>
-                <div class="section-title"><i data-lucide="search"></i> 1. Diagnóstico de Trajetória</div>
-                <p class="narrative-text">
-                    O candidato apresenta o alinhamento geográfico e de nicho mais preciso. Atua no <strong>"Clube do Botafogo / MLD Stadium Catering"</strong>. A vivência em "Stadium Catering" é o diferencial "unfair", indicando familiaridade imediata com a dinâmica do Autódromo (picos de eventos, logística complexa). Cita explicitamente "Supervisão de estoque" e "Interface entre funcionários e proprietário", resolvendo a necessidade de um gestor de confiança no front.
-                </p>
-            </section>
-
-            <section>
-                <div class="section-title"><i data-lucide="star"></i> 2. Evidências Técnicas (Padrão STAR)</div>
-                <ul class="star-list">
-                    <li><strong>Situação:</strong> Operação em ambiente de Estádio/Clube Esportivo.</li>
-                    <li><strong>Tarefa:</strong> Garantir agilidade e qualidade sob alta pressão de eventos.</li>
-                    <li><strong>Ação:</strong> Relata "Apoio à cozinha para garantir agilidade" e resolução direta de conflitos operacionais. Perfil "Maestro".</li>
-                    <li><strong>Resultado:</strong> Foco declarado em fidelização e garantia da qualidade do serviço.</li>
-                </ul>
-            </section>
-
-            <div class="swot-grid">
-                <div class="swot-item strength">
-                    <span class="swot-label">Força</span>
-                    Experiência "mão na massa" em estádios; Gestão de estoque citada.
-                </div>
-                <div class="swot-item weakness">
-                    <span class="swot-label">Fraqueza</span>
-                    Currículo sintético; necessário aprofundar números de faturamento na entrevista.
-                </div>
-                <div class="swot-item opportunity">
-                    <span class="swot-label">Oportunidade</span>
-                    Readiness imediato para MotoGP e grandes shows.
-                </div>
-                <div class="swot-item threat">
-                    <span class="swot-label">Ameaça</span>
-                    Empregado atualmente (desde Jan 2025). Risco de contraproposta.
-                </div>
-            </div>
-
-            <div class="scorecard-container">
-                <div class="score-metrics">
-                    <ul>
-                        <li>Controle de Processos: <strong>4.5/5.0</strong></li>
-                        <li>Liderança de Front: <strong>5.0/5.0</strong></li>
-                        <li>Experiência em Eventos: <strong>5.0/5.0</strong></li>
-                        <li>Alinhamento Geográfico: <strong>5.0/5.0</strong></li>
-                    </ul>
-                </div>
-                <div class="score-final">
-                    <div class="number">96%</div>
-                    <div class="label">Score Final</div>
-                </div>
-            </div>
-        </article>
-
-        <!-- CANDIDATO 2: WERICK -->
-        <article class="elite-card">
-            <div class="card-header">
-                <div>
-                    <h2>Werick Fernando Abreu</h2>
-                    <span style="font-size: 0.9rem; color: var(--text-secondary);">Analista de Compras / Ex-Gerente</span>
-                </div>
-                <span class="badge warning"><i data-lucide="alert-triangle" width="16"></i> Recomendado - Perfil Auditor</span>
-            </div>
-
-            <section>
-                <div class="section-title"><i data-lucide="search"></i> 1. Diagnóstico de Trajetória</div>
-                <p class="narrative-text">
-                    Se a dor principal da Session for <strong>"Perda de Estoque e Erro de Notas"</strong>, Werick é a solução cirúrgica. Sua trajetória recente é focada em Compras, Análise de Custos e Sinistros. Possui experiência anterior como Gerente na "Royal Comércio de Bebidas" (conferência de cofre e caixa). É um perfil analítico, excelente para o backoffice e processos, mas pode carecer do dinamismo de salão (hostess).
-                </p>
-            </section>
-
-            <div class="swot-grid">
-                <div class="swot-item strength">
-                    <span class="swot-label">Força</span>
-                    Domínio absoluto de notas fiscais, cotação e auditoria de estoque.
-                </div>
-                <div class="swot-item weakness">
-                    <span class="swot-label">Fraqueza</span>
-                    Últimos 4 anos em escritório (compras/sinistros). Pode estar "enferrujado" na operação noturna.
-                </div>
-                <div class="swot-item opportunity">
-                    <span class="swot-label">Oportunidade</span>
-                    Profissionalizar o setor de compras e reduzir CMV drasticamente.
-                </div>
-                <div class="swot-item threat">
-                    <span class="swot-label">Ameaça</span>
-                    Perfil talvez técnico demais para a liderança de equipe de bar jovem.
-                </div>
-            </div>
-
-            <div class="scorecard-container">
-                <div class="score-metrics">
-                    <ul>
-                        <li>Controle de Processos: <strong>5.0/5.0</strong></li>
-                        <li>Liderança de Front: <strong>3.0/5.0</strong></li>
-                        <li>Experiência em Eventos: <strong>3.5/5.0</strong></li>
-                        <li>Alinhamento Financeiro: <strong>4.5/5.0</strong></li>
-                    </ul>
-                </div>
-                <div class="score-final">
-                    <div class="number">85%</div>
-                    <div class="label">Score Final</div>
-                </div>
-            </div>
-        </article>
-
-        <!-- VISÃO GERAL OUTROS -->
-        <h2 style="margin-top: 60px; color: var(--text-primary);">Visão Geral dos Demais Candidatos</h2>
-        <table class="comparison-table">
-            <thead>
-                <tr>
-                    <th>Candidato</th>
-                    <th>Perfil Resumido</th>
-                    <th>Parecer Técnico</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td style="font-weight: 600;">Goianésio F. Lucas Jr.</td>
-                    <td>Hotelaria Sênior / Copa do Mundo 2014</td>
-                    <td>
-                        <span class="badge warning" style="margin-bottom: 5px;">⚠️ Overqualified</span><br>
-                        Excelente técnico, mas risco salarial alto. Acostumado com estruturas de hotéis e resorts. Risco de frustração com R$ 3.5k.
-                    </td>
-                </tr>
-                <tr>
-                    <td>Paulo Henrique Tavares</td>
-                    <td>Varejo / Supermercado</td>
-                    <td>
-                        <span class="badge warning" style="margin-bottom: 5px;">⚠️ Médio Alinhamento</span><br>
-                        Perfil de "prancheta" de supermercado. Passagem no Empório Saccaria é positiva, mas mora longe (Aparecida).
-                    </td>
-                </tr>
-                <tr>
-                    <td>Leandro Borges</td>
-                    <td>Indústria / Franquias</td>
-                    <td>
-                        <span class="badge danger" style="margin-bottom: 5px;">❌ Não Recomendado</span><br>
-                        Foco excessivo em PDCA, CD e Planejamento Anual. Perfil corporativo demais para a agilidade de um bar.
-                    </td>
-                </tr>
-                <tr>
-                    <td>Bruno Henrique</td>
-                    <td>Vendas (Peças/PVC)</td>
-                    <td>
-                        <span class="badge danger" style="margin-bottom: 5px;">❌ Descartado</span><br>
-                        Sem experiência em A&B ou gestão de equipe noturna.
-                    </td>
-                </tr>
-            </tbody>
-        </table>
-
-        <!-- PRÓXIMOS PASSOS -->
-        <div style="margin-top: 60px;">
-            <h2>Próximos Passos: Convite para Entrevista</h2>
-            <p style="color: var(--text-secondary); margin-bottom: 20px;">Copie os textos abaixo para agendar via WhatsApp.</p>
-
-            <div style="margin-bottom: 30px;">
-                <strong style="color: var(--live-accent);">Opção 1: Alan Gonçalves (Prioridade Alta)</strong>
-                <div class="whatsapp-box">
-                    "Olá, Alan! Tudo bem? Aqui é da equipe de seleção da Session (Parque Marcos Veiga Jardim). <br><br>
-                    Analisamos seu perfil e sua experiência com operações em Estádio/Catering chamou nossa atenção. Temos uma vaga de Gerência que exige exatamente essa dinâmica de eventos + controle.<br><br>
-                    Você teria disponibilidade para um papo técnico amanhã às [HORA] no local?"
-                </div>
-            </div>
-
-            <div>
-                <strong style="color: var(--live-warning);">Opção 2: Werick Abreu (Foco Auditoria)</strong>
-                <div class="whatsapp-box">
-                    "Olá, Werick! Tudo bem? Aqui é da equipe de seleção da Session.<br><br>
-                    Vimos sua experiência sólida em compras e conferência na Royal e Solidy. Estamos buscando um Gerente com perfil forte em auditoria de processos e estoque.<br><br>
-                    Gostaríamos de entender se você tem interesse em voltar para a operação de ponta. Topa uma conversa amanhã?"
-                </div>
-            </div>
-        </div>
 
         <footer style="margin-top: 80px; text-align: center; color: var(--border-active); font-size: 0.8rem; border-top: 1px solid var(--border-subtle); padding-top: 20px;">
             PROTOCOL ELITE V6.0 - SYSTEM R&S INTELLIGENCE<br>
@@ -537,6 +733,33 @@
 
     <script>
         lucide.createIcons();
+
+        function openTab(tabName) {
+            // Esconder todos os conteúdos
+            var i;
+            var x = document.getElementsByClassName("tab-content");
+            for (i = 0; i < x.length; i++) {
+                x[i].classList.remove("active");
+                x[i].style.display = "none";
+            }
+            
+            // Desativar todos os botões
+            var tablinks = document.getElementsByClassName("tab-btn");
+            for (i = 0; i < tablinks.length; i++) {
+                tablinks[i].classList.remove("active");
+            }
+
+            // Mostrar o conteúdo atual e ativar o botão
+            document.getElementById(tabName).style.display = "block";
+            // Pequeno delay para permitir a transição de opacidade
+            setTimeout(() => {
+                document.getElementById(tabName).classList.add("active");
+            }, 10);
+            
+            // Encontrar o botão que foi clicado e adicionar active
+            // (Assumindo que o clique vem do botão)
+            event.currentTarget.classList.add("active");
+        }
     </script>
 </body>
 </html>
