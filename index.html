@@ -1,0 +1,542 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Parecer Técnico - Session R&S</title>
+    
+    <!-- Fontes -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,300;0,400;0,700;1,300&family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Ícones Lucide -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <style>
+        :root {
+            /* --- Atmosfera Live --- */
+            --live-deep: #06192a;
+            --live-dark: #020b14;
+            --live-card-bg: rgba(10, 36, 61, 0.65);
+            
+            /* --- Superfícies (Glassmorphism) --- */
+            --live-glass: rgba(10, 36, 61, 0.75);
+            --live-glass-hover: rgba(15, 45, 75, 0.90);
+            --glass-blur: blur(20px) saturate(180%);
+            
+            /* --- Luz & Ação --- */
+            --live-accent: #00e800; /* Verde Live */
+            --live-accent-dim: rgba(0, 232, 0, 0.15);
+            --live-warning: #f59e0b;
+            --live-danger: #ff3b3b;
+            --text-primary: #ffffff;
+            --text-secondary: #a0a0a0;
+            
+            /* --- Bordas --- */
+            --border-subtle: rgba(255, 255, 255, 0.1);
+            --border-active: rgba(0, 232, 0, 0.5);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: var(--live-deep);
+            background-image: url('https://www.transparenttextures.com/patterns/cubes.png');
+            color: var(--text-primary);
+            font-family: 'Poppins', sans-serif;
+            line-height: 1.6;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        /* --- Header --- */
+        header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding: 40px 0;
+            border-bottom: 1px solid var(--border-subtle);
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            color: var(--live-accent);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 10px;
+        }
+
+        .subtitle {
+            font-family: 'Merriweather', serif;
+            font-style: italic;
+            color: var(--text-secondary);
+        }
+
+        /* --- Buttons --- */
+        .btn-live {
+            display: inline-flex;
+            align-items: center;
+            background-color: var(--live-accent);
+            color: var(--live-dark);
+            padding: 10px 24px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 700;
+            margin-top: 25px;
+            transition: all 0.2s ease;
+            box-shadow: 0 4px 15px rgba(0, 232, 0, 0.2);
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .btn-live:hover {
+            transform: translateY(-2px);
+            background-color: #00ff00;
+            box-shadow: 0 6px 20px rgba(0, 232, 0, 0.4);
+        }
+
+        .btn-live i {
+            margin-right: 8px;
+        }
+
+        /* --- Badges --- */
+        .badge {
+            display: inline-flex;
+            align-items: center;
+            padding: 5px 12px;
+            border-radius: 50px;
+            font-size: 0.8rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            gap: 5px;
+        }
+
+        .badge.recommended {
+            background-color: var(--live-accent-dim);
+            color: var(--live-accent);
+            border: 1px solid var(--live-accent);
+        }
+
+        .badge.warning {
+            background-color: rgba(245, 158, 11, 0.15);
+            color: var(--live-warning);
+            border: 1px solid var(--live-warning);
+        }
+
+        .badge.danger {
+            background-color: rgba(255, 59, 59, 0.15);
+            color: var(--live-danger);
+            border: 1px solid var(--live-danger);
+        }
+
+        /* --- Card Elite --- */
+        .elite-card {
+            background: var(--live-card-bg);
+            backdrop-filter: var(--glass-blur);
+            border: 1px solid var(--border-subtle);
+            border-radius: 16px;
+            padding: 30px;
+            margin-bottom: 40px;
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+            transition: transform 0.3s ease;
+        }
+
+        .elite-card:hover {
+            border-color: var(--border-active);
+        }
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .card-header h2 {
+            font-size: 1.8rem;
+        }
+
+        /* --- Diagnóstico e STAR --- */
+        .section-title {
+            color: var(--live-accent);
+            font-size: 1.1rem;
+            text-transform: uppercase;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            border-bottom: 1px solid var(--border-subtle);
+            padding-bottom: 5px;
+        }
+
+        .narrative-text {
+            font-family: 'Merriweather', serif;
+            color: #e0e0e0;
+            margin-bottom: 25px;
+            font-size: 0.95rem;
+        }
+
+        .star-list {
+            list-style: none;
+            background: rgba(0,0,0,0.2);
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 25px;
+        }
+
+        .star-list li {
+            margin-bottom: 10px;
+            display: flex;
+            gap: 10px;
+        }
+
+        .star-list strong {
+            color: var(--live-accent);
+            min-width: 90px;
+        }
+
+        /* --- SWOT Grid --- */
+        .swot-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 15px;
+            margin-bottom: 25px;
+        }
+
+        .swot-item {
+            padding: 15px;
+            border-radius: 8px;
+            background: rgba(255, 255, 255, 0.03);
+            border-left: 3px solid;
+        }
+
+        .swot-item.strength { border-color: var(--live-accent); }
+        .swot-item.weakness { border-color: var(--live-warning); }
+        .swot-item.opportunity { border-color: #00d2ff; }
+        .swot-item.threat { border-color: var(--live-danger); }
+
+        .swot-label {
+            display: block;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            opacity: 0.7;
+            margin-bottom: 5px;
+        }
+
+        /* --- Scorecard --- */
+        .scorecard-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: linear-gradient(90deg, rgba(6,25,42,1) 0%, rgba(0,232,0,0.05) 100%);
+            padding: 20px;
+            border-radius: 12px;
+            border: 1px solid var(--border-subtle);
+        }
+
+        .score-metrics ul {
+            list-style: none;
+            columns: 2;
+            column-gap: 40px;
+        }
+
+        .score-final {
+            text-align: right;
+        }
+
+        .score-final .number {
+            font-size: 3rem;
+            font-weight: 700;
+            color: var(--live-accent);
+            line-height: 1;
+        }
+
+        .score-final .label {
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* --- Tabela Geral --- */
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 40px;
+            background: var(--live-card-bg);
+            border-radius: 12px;
+            overflow: hidden;
+        }
+
+        .comparison-table th, .comparison-table td {
+            padding: 15px;
+            text-align: left;
+            border-bottom: 1px solid var(--border-subtle);
+        }
+
+        .comparison-table th {
+            background: rgba(0,0,0,0.3);
+            color: var(--live-accent);
+            text-transform: uppercase;
+            font-size: 0.85rem;
+        }
+
+        /* --- Scripts WhatsApp --- */
+        .whatsapp-box {
+            background: #0f2c25;
+            border: 1px solid #1a4d3e;
+            padding: 20px;
+            border-radius: 8px;
+            margin-top: 10px;
+            font-family: monospace;
+            color: #dcfce7;
+        }
+        
+        @media (max-width: 768px) {
+            .scorecard-container {
+                flex-direction: column;
+                gap: 20px;
+                align-items: flex-start;
+            }
+            .score-metrics ul {
+                columns: 1;
+            }
+            .score-final {
+                text-align: left;
+                width: 100%;
+                border-top: 1px solid var(--border-subtle);
+                padding-top: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <header>
+            <h1>Parecer Técnico R&S</h1>
+            <div class="subtitle">Cliente: <strong>Session - Hub de Experiência</strong></div>
+            <div style="margin-top: 10px; font-size: 0.9rem; opacity: 0.8;">
+                Vaga: Gerente de Unidade (Operação Noturna & Eventos)
+            </div>
+            
+            <!-- Botão de Acesso ao Drive -->
+            <a href="https://drive.google.com/drive/folders/1uei1fZM01e1j4c6zfXtzWuz2Mc-jN2L9?usp=sharing" target="_blank" class="btn-live">
+                <i data-lucide="folder-open"></i>
+                Acessar Pasta de Currículos (Drive)
+            </a>
+        </header>
+
+        <!-- INTRODUÇÃO -->
+        <div style="margin-bottom: 40px; border-left: 3px solid var(--live-accent); padding-left: 20px;">
+            <h3 style="color: var(--text-primary);">Diagnóstico do Consultor</h3>
+            <p style="font-family: 'Merriweather', serif; color: var(--text-secondary);">
+                A análise focou em resolver a dor crítica: <strong>Auditoria de Processos (Estoque/Ficha Técnica)</strong> combinada com <strong>Liderança de Eventos de Grande Porte (Autódromo)</strong>. Dos 6 candidatos analisados, 2 se destacam com fit imediato para entrevista.
+            </p>
+        </div>
+
+        <!-- CANDIDATO 1: ALAN -->
+        <article class="elite-card">
+            <div class="card-header">
+                <div>
+                    <h2>Alan Gonçalves Viana</h2>
+                    <span style="font-size: 0.9rem; color: var(--text-secondary);">Gerente de Restaurante e Lanchonete</span>
+                </div>
+                <span class="badge recommended"><i data-lucide="check-circle" width="16"></i> Recomendado - Fit Cultural</span>
+            </div>
+
+            <section>
+                <div class="section-title"><i data-lucide="search"></i> 1. Diagnóstico de Trajetória</div>
+                <p class="narrative-text">
+                    O candidato apresenta o alinhamento geográfico e de nicho mais preciso. Atua no <strong>"Clube do Botafogo / MLD Stadium Catering"</strong>. A vivência em "Stadium Catering" é o diferencial "unfair", indicando familiaridade imediata com a dinâmica do Autódromo (picos de eventos, logística complexa). Cita explicitamente "Supervisão de estoque" e "Interface entre funcionários e proprietário", resolvendo a necessidade de um gestor de confiança no front.
+                </p>
+            </section>
+
+            <section>
+                <div class="section-title"><i data-lucide="star"></i> 2. Evidências Técnicas (Padrão STAR)</div>
+                <ul class="star-list">
+                    <li><strong>Situação:</strong> Operação em ambiente de Estádio/Clube Esportivo.</li>
+                    <li><strong>Tarefa:</strong> Garantir agilidade e qualidade sob alta pressão de eventos.</li>
+                    <li><strong>Ação:</strong> Relata "Apoio à cozinha para garantir agilidade" e resolução direta de conflitos operacionais. Perfil "Maestro".</li>
+                    <li><strong>Resultado:</strong> Foco declarado em fidelização e garantia da qualidade do serviço.</li>
+                </ul>
+            </section>
+
+            <div class="swot-grid">
+                <div class="swot-item strength">
+                    <span class="swot-label">Força</span>
+                    Experiência "mão na massa" em estádios; Gestão de estoque citada.
+                </div>
+                <div class="swot-item weakness">
+                    <span class="swot-label">Fraqueza</span>
+                    Currículo sintético; necessário aprofundar números de faturamento na entrevista.
+                </div>
+                <div class="swot-item opportunity">
+                    <span class="swot-label">Oportunidade</span>
+                    Readiness imediato para MotoGP e grandes shows.
+                </div>
+                <div class="swot-item threat">
+                    <span class="swot-label">Ameaça</span>
+                    Empregado atualmente (desde Jan 2025). Risco de contraproposta.
+                </div>
+            </div>
+
+            <div class="scorecard-container">
+                <div class="score-metrics">
+                    <ul>
+                        <li>Controle de Processos: <strong>4.5/5.0</strong></li>
+                        <li>Liderança de Front: <strong>5.0/5.0</strong></li>
+                        <li>Experiência em Eventos: <strong>5.0/5.0</strong></li>
+                        <li>Alinhamento Geográfico: <strong>5.0/5.0</strong></li>
+                    </ul>
+                </div>
+                <div class="score-final">
+                    <div class="number">96%</div>
+                    <div class="label">Score Final</div>
+                </div>
+            </div>
+        </article>
+
+        <!-- CANDIDATO 2: WERICK -->
+        <article class="elite-card">
+            <div class="card-header">
+                <div>
+                    <h2>Werick Fernando Abreu</h2>
+                    <span style="font-size: 0.9rem; color: var(--text-secondary);">Analista de Compras / Ex-Gerente</span>
+                </div>
+                <span class="badge warning"><i data-lucide="alert-triangle" width="16"></i> Recomendado - Perfil Auditor</span>
+            </div>
+
+            <section>
+                <div class="section-title"><i data-lucide="search"></i> 1. Diagnóstico de Trajetória</div>
+                <p class="narrative-text">
+                    Se a dor principal da Session for <strong>"Perda de Estoque e Erro de Notas"</strong>, Werick é a solução cirúrgica. Sua trajetória recente é focada em Compras, Análise de Custos e Sinistros. Possui experiência anterior como Gerente na "Royal Comércio de Bebidas" (conferência de cofre e caixa). É um perfil analítico, excelente para o backoffice e processos, mas pode carecer do dinamismo de salão (hostess).
+                </p>
+            </section>
+
+            <div class="swot-grid">
+                <div class="swot-item strength">
+                    <span class="swot-label">Força</span>
+                    Domínio absoluto de notas fiscais, cotação e auditoria de estoque.
+                </div>
+                <div class="swot-item weakness">
+                    <span class="swot-label">Fraqueza</span>
+                    Últimos 4 anos em escritório (compras/sinistros). Pode estar "enferrujado" na operação noturna.
+                </div>
+                <div class="swot-item opportunity">
+                    <span class="swot-label">Oportunidade</span>
+                    Profissionalizar o setor de compras e reduzir CMV drasticamente.
+                </div>
+                <div class="swot-item threat">
+                    <span class="swot-label">Ameaça</span>
+                    Perfil talvez técnico demais para a liderança de equipe de bar jovem.
+                </div>
+            </div>
+
+            <div class="scorecard-container">
+                <div class="score-metrics">
+                    <ul>
+                        <li>Controle de Processos: <strong>5.0/5.0</strong></li>
+                        <li>Liderança de Front: <strong>3.0/5.0</strong></li>
+                        <li>Experiência em Eventos: <strong>3.5/5.0</strong></li>
+                        <li>Alinhamento Financeiro: <strong>4.5/5.0</strong></li>
+                    </ul>
+                </div>
+                <div class="score-final">
+                    <div class="number">85%</div>
+                    <div class="label">Score Final</div>
+                </div>
+            </div>
+        </article>
+
+        <!-- VISÃO GERAL OUTROS -->
+        <h2 style="margin-top: 60px; color: var(--text-primary);">Visão Geral dos Demais Candidatos</h2>
+        <table class="comparison-table">
+            <thead>
+                <tr>
+                    <th>Candidato</th>
+                    <th>Perfil Resumido</th>
+                    <th>Parecer Técnico</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td style="font-weight: 600;">Goianésio F. Lucas Jr.</td>
+                    <td>Hotelaria Sênior / Copa do Mundo 2014</td>
+                    <td>
+                        <span class="badge warning" style="margin-bottom: 5px;">⚠️ Overqualified</span><br>
+                        Excelente técnico, mas risco salarial alto. Acostumado com estruturas de hotéis e resorts. Risco de frustração com R$ 3.5k.
+                    </td>
+                </tr>
+                <tr>
+                    <td>Paulo Henrique Tavares</td>
+                    <td>Varejo / Supermercado</td>
+                    <td>
+                        <span class="badge warning" style="margin-bottom: 5px;">⚠️ Médio Alinhamento</span><br>
+                        Perfil de "prancheta" de supermercado. Passagem no Empório Saccaria é positiva, mas mora longe (Aparecida).
+                    </td>
+                </tr>
+                <tr>
+                    <td>Leandro Borges</td>
+                    <td>Indústria / Franquias</td>
+                    <td>
+                        <span class="badge danger" style="margin-bottom: 5px;">❌ Não Recomendado</span><br>
+                        Foco excessivo em PDCA, CD e Planejamento Anual. Perfil corporativo demais para a agilidade de um bar.
+                    </td>
+                </tr>
+                <tr>
+                    <td>Bruno Henrique</td>
+                    <td>Vendas (Peças/PVC)</td>
+                    <td>
+                        <span class="badge danger" style="margin-bottom: 5px;">❌ Descartado</span><br>
+                        Sem experiência em A&B ou gestão de equipe noturna.
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+        <!-- PRÓXIMOS PASSOS -->
+        <div style="margin-top: 60px;">
+            <h2>Próximos Passos: Convite para Entrevista</h2>
+            <p style="color: var(--text-secondary); margin-bottom: 20px;">Copie os textos abaixo para agendar via WhatsApp.</p>
+
+            <div style="margin-bottom: 30px;">
+                <strong style="color: var(--live-accent);">Opção 1: Alan Gonçalves (Prioridade Alta)</strong>
+                <div class="whatsapp-box">
+                    "Olá, Alan! Tudo bem? Aqui é da equipe de seleção da Session (Parque Marcos Veiga Jardim). <br><br>
+                    Analisamos seu perfil e sua experiência com operações em Estádio/Catering chamou nossa atenção. Temos uma vaga de Gerência que exige exatamente essa dinâmica de eventos + controle.<br><br>
+                    Você teria disponibilidade para um papo técnico amanhã às [HORA] no local?"
+                </div>
+            </div>
+
+            <div>
+                <strong style="color: var(--live-warning);">Opção 2: Werick Abreu (Foco Auditoria)</strong>
+                <div class="whatsapp-box">
+                    "Olá, Werick! Tudo bem? Aqui é da equipe de seleção da Session.<br><br>
+                    Vimos sua experiência sólida em compras e conferência na Royal e Solidy. Estamos buscando um Gerente com perfil forte em auditoria de processos e estoque.<br><br>
+                    Gostaríamos de entender se você tem interesse em voltar para a operação de ponta. Topa uma conversa amanhã?"
+                </div>
+            </div>
+        </div>
+
+        <footer style="margin-top: 80px; text-align: center; color: var(--border-active); font-size: 0.8rem; border-top: 1px solid var(--border-subtle); padding-top: 20px;">
+            PROTOCOL ELITE V6.0 - SYSTEM R&S INTELLIGENCE<br>
+            Live Consultoria © 2024
+        </footer>
+    </div>
+
+    <script>
+        lucide.createIcons();
+    </script>
+</body>
+</html>
